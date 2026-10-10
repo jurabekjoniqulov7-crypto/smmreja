@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SMM dizayner: 56 kunlik reja</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F4F8;--card:#fff;--ink:#1A2140;--mute:#5E6785;--line:#DDE2EE;--acc:#2B4EFF;--ok:#1E8A5A;--warn:#E8A317;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11141F;--card:#1A1F31;--ink:#EAEDF8;--mute:#9AA3C2;--line:#2B3250;--acc:#7C93FF;--ok:#4FD39A;--warn:#F0B84A}}
+:root[data-theme="dark"]{--bg:#11141F;--card:#1A1F31;--ink:#EAEDF8;--mute:#9AA3C2;--line:#2B3250;--acc:#7C93FF;--ok:#4FD39A;--warn:#F0B84A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:14px 14px 80px}
+h1{font-size:1.35rem;font-weight:800;margin:4px 0}
+h2{font-size:1.15rem;margin:14px 0 4px}
+.mute{color:var(--mute);font-size:.88rem}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-bottom:8px}
+.track{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:6px}
+.fill{height:100%;width:0;background:var(--acc);transition:width .3s}
+.tabs{display:flex;gap:6px;margin-top:10px}
+.tabs button{flex:1;font:inherit;font-weight:700;font-size:.9rem;padding:9px 4px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--mute);cursor:pointer}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0}
+.strip{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.strip button{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--mute);font:inherit;font-size:.68rem;font-weight:700;cursor:pointer;padding:0}
+.strip button.p{background:var(--warn);color:#000;border-color:var(--warn)}
+.strip button.d{background:var(--ok);color:#fff;border-color:var(--ok)}
+.strip button.c{outline:2px solid var(--acc);outline-offset:1px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nav button,.btn{font:inherit;font-weight:700;font-size:.9rem;border-radius:9px;padding:8px 14px;cursor:pointer;border:1px solid var(--acc);background:var(--acc);color:#fff}
+.btn.g{background:none;color:var(--mute);border-color:var(--line)}
+.btn.ok{background:var(--ok);border-color:var(--ok)}
+label.t{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+label.t:last-child{border-bottom:0}
+label.t input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--mute);border-radius:7px;display:grid;place-content:center;cursor:pointer;background:var(--card)}
+label.t input:checked{background:var(--ok);border-color:var(--ok)}
+label.t input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+label.t input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+label.t input:checked+span{color:var(--mute);text-decoration:line-through}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.nums label{font-size:.8rem;color:var(--mute);font-weight:600}
+input[type=number],input[type=text],input[type=date],select{width:100%;font:inherit;padding:9px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.big{font-size:1.7rem;font-weight:800}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.lead{display:grid;grid-template-columns:1fr 130px auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.lead small{display:block;color:var(--mute);word-break:break-all}
+.tpl p{white-space:pre-wrap;margin:4px 0 10px;font-size:.92rem;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<h1>SMM dizayner: 56 kunlik reja</h1>
+<div class="mute" id="pt"></div>
+<div class="track"><div class="fill" id="fill"></div></div>
+<div class="tabs" id="tabs"></div>
+</div>
+<div id="main"></div>
+</div>
+
+<script>
+var D=[];
+function add(t,k){D.push({t:t,k:k})}
+add("Maqsad va asos",[
+"Daftarga yozing: oylik maqsad (masalan 3 mijoz x 1 500 000 = 4 500 000 so'm)",
+"Daftarga yozing: har bir dizayn narxi (poster, karusel, cover) va oylik paket narxi",
+"Instagramdagi barcha ishlaringizni ko'rib chiqing, eng yaxshi 8 tasini raqamlab yozing",
+"Kompyuterda 3 ta papka oching: Portfolio, Mijozlar, Shablonlar",
+"To'lov qabul qilish uchun karta raqami va Click/Payme'ni tekshiring",
+"Telegram username'ni ish uchun qulay qiling (ism_dizayn ko'rinishida) va rasm qo'ying"]);
+add("Portfolio: 1-4 ish",[
+"1-ishni tayyorlang: 1080x1350 formatda eksport (JPG yoki PNG)",
+"2-ishni tayyorlang va eksport qiling",
+"3-ishni tayyorlang va eksport qiling",
+"4-ishni tayyorlang va eksport qiling",
+"Har bir ish uchun 1 qatorli izoh yozing (masalan: 'Kafe uchun 7 slaydli karusel, aksiya e'loni')",
+"Faylga nom bering: 01-kafe-karusel.jpg kabi"]);
+add("Portfolio: 5-8 ish va havola",[
+"5-ishni tayyorlang va eksport qiling",
+"6-ishni tayyorlang va eksport qiling",
+"7-ishni tayyorlang va eksport qiling",
+"8-ishni tayyorlang va eksport qiling",
+"Hamma ishlar turlicha bo'lsin: 3 poster, 3 karusel, 2 cover. Yetishmasa bittasini yarating",
+"Behance yoki Telegram kanalda 8 ta ishni bitta havolaga joylang",
+"Havolani boshqa telefondan ochib tekshiring"]);
+add("Instagram: profil",[
+"Bio yozing: 'SMM uchun poster, karusel, cover | 24 soatda | Buyurtma: Telegram @username'",
+"Bioga portfolio yoki Telegram havolasini qo'ying",
+"Highlights muqovalarini yarating: Portfolio, Narxlar, Sharhlar, Buyurtma",
+"Narxlar highlight'iga 2-3 storis qo'ying (paketlar, muddat, tahrir soni)",
+"Profil rasmini yuzingiz yoki toza logotip bilan almashtiring",
+"1-ishni postga joylang (izoh bilan)"]);
+add("Instagram: postlar 1",[
+"2-ishni postga joylang, izohga nima uchun qilganingizni yozing",
+"3-ishni postga joylang",
+"Har bir postga 5 ta xeshteg qo'ying: #smmdizayn #karusel #poster #toshkent #dizayner",
+"Portfolio storisini joylang (8 ta ishdan 3 tasi)",
+"Xabar matnlarini (Xabarlar bo'limi) ochib, o'zingizga moslab o'qib chiqing"]);
+add("Instagram: postlar 2",[
+"4-ishni postga joylang",
+"5-ishni postga joylang",
+"Sharhlar highlight'iga hozircha 'Birinchi mijozlar uchun maxsus narx' storisini qo'ying",
+"Telegram kanal nomi va tavsifini o'ylab yozing (masalan: 'SMM dizayn portfolio | username')"]);
+add("Telegram kanal",[
+"Telegram kanal oching, nomi va tavsifini kiriting",
+"Kanalga 8 ta ishni postlar ko'rinishida joylang (kuniga bir nechtasi bo'ladi)",
+"Kanal havolasini Instagram bio va Behance'ga qo'shing",
+"6-ishni Instagramga joylang",
+"Do'st va tanishlaringizga kanalni yuboring (maqsad: 30-50 ta obunachi, sotuv uchun emas, ishonch uchun)"]);
+add("Instagram: postlar 3",[
+"7-ishni postga joylang",
+"8-ishni postga joylang",
+"Hamma postlarni ko'rib chiqing: izohlar, xeshteglar, rasm sifati",
+"Dam oling: ertaga mijoz izlash ro'yxatini tuzasiz"]);
+add("Menejerlar ro'yxati 1",[
+"Jadval (Google Sheets) oching: ustunlar - Ism, Havola, Yozilgan sana, Javob, Namuna, Natija",
+"Instagramda qidiring: 'smm menejer', 'smm toshkent', 'smm agentlik', 'targetolog'. 15 ta ismni jadvalga yozing",
+"Telegramda qidiring: 'SMM menejer' kanallari va chatlari. 5 ta kishini qo'shing",
+"Har birining profiliga kiring: faol (haftada 3+ post) va mijozlari bor kishilarni tanlang",
+"Qo'shilgan ro'yxatni 20 taga yetkazing"]);
+add("Menejerlar ro'yxati 2 va birinchi yozish",[
+"Ro'yxatni 30 taga yetkazing",
+"Birinchi xabar matnini o'zingizga moslang va telefonga saqlang",
+"Portfolio havolasini xabarga qo'ying",
+"Sinov uchun 5 ta menejerga birinchi xabarni yuboring (jadvalga sana yozing)",
+"Telegramda 3 ta SMM chatiga qo'shiling (faqat o'qing, hozircha yozmang)"]);
+
+var R={14:"1-2 hafta natijasi: kamida 60 ta xabar yuborilgan bo'lishi kerak. Yo'q bo'lsa, qoldirilgan kunlarni qo'shing",
+21:"Javob 3 tadan kam bo'lsa: birinchi xabarni 'Qisqa savol' variantiga almashtiring va agentliklarga ham yozing",
+28:"3 ta paket (Start, Standart, Pro) yozing: post va karusel soni, narx, muddat",
+35:"Narxni 20-30% oshiring (yangi mijozlar uchun). Eski mijozlarga 1 oy keyin",
+42:"Oylik shartnoma qoidalarini yozing: oldindan to'lov, tahrir soni, muddat, to'lov sanasi (1-5)",
+49:"Shablon paketini boshlang: 10 ta karusel shabloni (Figma yoki PSD)",
+56:"Yakuniy natija: 3 ta oylik mijoz bormi? Yo'q bo'lsa sababini yozing va keyingi 30 kun rejasini tuzing"};
+for(var d=11;d<=56;d++){
+ var wd=d%7,ph=d<=20?"Mijoz izlash":d<=30?"Mijoz izlash va birinchi buyurtmalar":d<=45?"Barqaror mijozlar":"O'sish";
+ if(wd===0){
+  add("Haftalik tahlil: "+ph,[
+  "Hisob bo'limidan haftalik natijani yozing: xabar, javob, namuna, buyurtma, daromad",
+  "Javob foizini toping (javob / xabar). 10% dan past bo'lsa xabar matnini o'zgartiring",
+  "Qaysi xabar varianti ko'proq javob olganini belgilang",
+  "Keyingi hafta uchun jadvalga 35 ta yangi nom qo'shing",
+  "Portfolioga 2 ta yangi ish joylang",
+  R[d]]);continue}
+ var k=["09:00 Yangi 5 ta SMM menejerga birinchi xabar yuboring (jadvaldagi navbatdagi 5 ta, sanani yozing)",
+ "09:30 Kelgan javoblarni tekshiring, har biriga 1 soat ichida javob bering",
+ "Qiziqish bildirganga savol bering: nechta mijoz, qaysi soha, oyiga qancha dizayn kerak",
+ "Qiziqqanga bepul namuna tayyorlab, 2 kun ichida yuboring"];
+ if(d>=14){k.push("14:00 3 kun oldin yozib javob bermaganlarga eslatma yuboring");k.push("Namuna yuborganlarga 24 soatdan keyin 'Qanday? Davom etamizmi?' deb yozing")}
+ if(wd===2||wd===5)k.push("Portfolioga 1 ta yangi ish joylang (Instagram va Telegram)");
+ if(d<=30)k.push("Telegram SMM chatida 1 ta foydali javob yozing (reklama emas)");
+ if(d>=22)k.push("Faol mijoz bo'lsa: bugungi buyurtmani bajaring va muddatida topshiring");
+ if(d>=25)k.push("Topshirilgan ish uchun sharh va natija skrinshotini so'rang");
+ if(d>=36)k.push("Avvalgi mijozlarga keyingi oy paketini taklif qiling");
+ k.push("20:00 Hisob bo'limini to'ldiring va ertangi 5 ta nomni belgilang");
+ add(ph,k);
+}
+var T=[
+{n:"1. Birinchi xabar (menejerga)",x:"Assalomu alaykum! Men SMM uchun poster, karusel va cover tayyorlaydigan dizaynerman.\n\nAgar mijozlaringiz ko'p bo'lib, dizayn vaqtingizni olayotgan bo'lsa, shu ishni men o'z zimmamga olaman: poster 24 soatda tayyor, 2 ta tahrir bepul.\n\nBitta mijozingiz uchun namunani bepul tayyorlab beraman. Yoqsa, doimiy hamkorlik qilamiz.\n\nIshlarim: [havola]"},
+{n:"2. Qisqa savol variant",x:"Assalomu alaykum! Dizaynni boshqa odamga topshirish kerak bo'lib qolganda kimga murojaat qilasiz? Men SMM uchun poster, karusel va cover qilaman, 24 soatda topshiraman. Ishlarimni yuboraymi?"},
+{n:"3. Eslatma (3 kundan keyin)",x:"Assalomu alaykum! Oldingi xabarimni eslatib qo'ymoqchi edim. Bu hafta bitta mijozingiz uchun namunani bepul tayyorlab beraman. Mos kelsa, yozing, mos kelmasa bezovta qilmayman."},
+{n:"4. Javob kelganda (savol)",x:"Javobingiz uchun rahmat! Aniqroq bilsam, namunani aynan sizga mos qilaman:\n1) Nechta mijoz bilan ishlaysiz?\n2) Qaysi sohalar (kafe, salon, do'kon)?\n3) Oyiga taxminan nechta dizayn kerak bo'ladi?"},
+{n:"5. Namunadan keyin",x:"Assalomu alaykum! Namuna yoqdimi? Xohlasangiz, shu uslubda oyiga [son] ta dizaynni doimiy tayyorlab beraman. Paket va narxlarni yuboraymi?"},
+{n:"6. Shartlar",x:"Hamkorlik shartlari:\n- Narx: [summa] so'm / oy ([son] ta dizayn)\n- Muddat: har bir dizayn 24 soatda\n- Tahrir: har dizaynga 2 tagacha bepul\n- To'lov: ish boshlashdan oldin 50%, topshirgandan keyin 50%\n\nMa'qul bo'lsa, shu hafta boshlaymiz."},
+{n:"Qarshilik: 'Qimmat'",x:"Tushunaman. Narx dizayn soniga bog'liq. Kichikroq paket ham bor: [son] ta dizayn, [summa] so'm. Avval shu bilan sinab ko'rsangiz, natijaga qarab davom etasiz."},
+{n:"Qarshilik: 'Hozir kerak emas'",x:"Tushunarli. Portfolio havolasini qoldiraman: [havola]. Dizayn kerak bo'lib qolsa yozing, 24 soatda tayyorlayman. 2 haftadan keyin yana so'rab qo'ysam bo'ladimi?"},
+{n:"Qarshilik: 'O'zim qilaman'",x:"Zo'r! Vaqtingiz ko'p ketsa, faqat murakkab ishlarni (karusel, cover) menga berishingiz mumkin. Bitta karuselni bepul qilib beraman, taqqoslab ko'rasiz."}
+];
+var K="smm56_v1",S={start:null,c:{},n:{},L:[]},cur=1,tab=0,TOT=0;
+D.forEach(function(x){TOT+=x.k.length});
+try{var z=JSON.parse(localStorage.getItem(K)||"null");if(z)S=z}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function e(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n}
+function today(){if(!S.start)return 1;var a=new Date(S.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);var i=Math.floor((b-a)/864e5)+1;return Math.max(1,Math.min(56,i))}
+function cnt(d){var c=0;D[d-1].k.forEach(function(_,i){if(S.c[d+"-"+i])c++});return c}
+var started=false;
+function render(){
+ if(!started){cur=today();started=true}
+ var dn=0;for(var d=1;d<=56;d++)dn+=cnt(d);
+ var pc=Math.round(dn*100/TOT);
+ document.getElementById("fill").style.width=pc+"%";
+ document.getElementById("pt").textContent=pc+"% bajarildi ("+dn+" / "+TOT+" vazifa)";
+ var tb=document.getElementById("tabs");tb.innerHTML="";
+ ["Kun","Hisob","Mijozlar","Xabarlar"].forEach(function(n,i){
+  var b=e("button",tab===i?"on":"",n);b.onclick=function(){tab=i;render()};tb.appendChild(b)});
+ var m=document.getElementById("main");m.innerHTML="";
+ [vDay,vStats,vLeads,vTpl][tab](m);
+}
+function vDay(m){
+ if(!S.start){
+  var c=e("div","card");c.appendChild(e("h2",null,"Rejani boshlash"));
+  c.appendChild(e("p","mute","Qaysi kundan boshlaysiz? 1-kun shu sana bo'ladi va 'Bugun' avtomatik hisoblanadi."));
+  var i=e("input");i.type="date";var t=new Date();i.value=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");
+  var b=e("button","btn","Boshlash");b.style.marginTop="10px";
+  b.onclick=function(){if(i.value){S.start=i.value;save();started=false;render()}};
+  c.appendChild(i);c.appendChild(b);m.appendChild(c);return}
+ var st=e("div","card strip");
+ for(var d=1;d<=56;d++){(function(d){
+  var n=cnt(d),tot=D[d-1].k.length,b=e("button",(n===tot?"d":n>0?"p":"")+(d===cur?" c":""),d);
+  b.onclick=function(){cur=d;render()};st.appendChild(b)})(d)}
+ m.appendChild(st);
+ var nv=e("div","nav");
+ var p=e("button",null,"Oldingi");p.onclick=function(){if(cur>1){cur--;render()}};
+ var nx=e("button",null,"Keyingi");nx.onclick=function(){if(cur<56){cur++;render()}};
+ var mid=e("button","btn g","Bugun: "+today()+"-kun");mid.onclick=function(){cur=today();render()};
+ nv.appendChild(p);nv.appendChild(mid);nv.appendChild(nx);m.appendChild(nv);
+ var x=D[cur-1],c=e("div","card");
+ c.appendChild(e("h2",null,cur+"-kun: "+x.t));
+ var dt=new Date(S.start+"T00:00:00");dt.setDate(dt.getDate()+cur-1);
+ c.appendChild(e("div","mute",dt.toLocaleDateString("uz-UZ",{weekday:"long",day:"numeric",month:"long"})+" | "+cnt(cur)+" / "+x.k.length+" bajarildi"));
+ x.k.forEach(function(txt,i){
+  var l=e("label","t"),k=document.createElement("input");k.type="checkbox";k.checked=!!S.c[cur+"-"+i];
+  k.onchange=function(){if(k.checked)S.c[cur+"-"+i]=1;else delete S.c[cur+"-"+i];save();render()};
+  l.appendChild(k);l.appendChild(e("span",null,txt));c.appendChild(l)});
+ m.appendChild(c);
+ var q=e("div","card");q.appendChild(e("h2",null,"Bugungi raqamlar"));
+ var g=e("div","nums"),N=S.n[cur]||{};
+ [["s","Yozilgan xabar"],["r","Javob"],["m","Namuna"],["o","Buyurtma"],["i","Daromad (so'm)"]].forEach(function(f){
+  var w=e("label",null,f[1]),i=e("input");i.type="number";i.min="0";i.value=N[f[0]]||"";
+  i.onchange=function(){S.n[cur]=S.n[cur]||{};S.n[cur][f[0]]=Number(i.value)||0;save()};
+  w.appendChild(i);g.appendChild(w)});
+ q.appendChild(g);m.appendChild(q);
+}
+function sum(f){var t=0;for(var d in S.n)t+=S.n[d][f]||0;return t}
+function vStats(m){
+ var s=sum("s"),r=sum("r"),c=e("div","card");
+ c.appendChild(e("h2",null,"Umumiy natija"));
+ [["Yozilgan xabar",s],["Javob",r],["Javob foizi",(s?Math.round(r*100/s):0)+"%"],["Namuna",sum("m")],["Buyurtma",sum("o")],["Daromad",sum("i").toLocaleString("ru-RU")+" so'm"]].forEach(function(a){
+  var w=e("div","row");w.style.justifyContent="space-between";w.style.padding="6px 0";
+  w.appendChild(e("span","mute",a[0]));w.appendChild(e("b",null,String(a[1])));c.appendChild(w)});
+ m.appendChild(c);
+ var k=0;for(var d=today();d>=1;d--){if(cnt(d)===D[d-1].k.length)k++;else if(d<today())break}
+ var q=e("div","card");q.appendChild(e("div","big",k+" kun"));q.appendChild(e("div","mute","Ketma-ket to'liq bajarilgan kunlar"));m.appendChild(q);
+ var h=e("div","card mute","Qoida: javob foizi 10% dan past bo'lsa, xabar matnini o'zgartiring. Namuna beruvchilarning yarmi buyurtma bermasa, namunani yaxshilang yoki narx shartlarini aniqroq yozing.");m.appendChild(h);
+ var rs=e("button","btn g","Barcha ma'lumotni tozalash");
+ rs.onclick=function(){if(confirm("Hamma ma'lumot o'chadi. Davom etasizmi?")){S={start:null,c:{},n:{},L:[]};save();started=false;render()}};
+ m.appendChild(rs);
+}
+var ST=["Yangi","Yozildi","Javob berdi","Namuna","Buyurtma","Rad"];
+function vLeads(m){
+ var c=e("div","card");c.appendChild(e("h2",null,"Mijozlar ro'yxati ("+S.L.length+")"));
+ var a=e("input");a.type="text";a.placeholder="Ism yoki sahifa nomi";
+ var b=e("input");b.type="text";b.placeholder="Havola (@username)";b.style.marginTop="8px";
+ var bt=e("button","btn","Qo'shish");bt.style.marginTop="8px";
+ bt.onclick=function(){if(a.value.trim()){S.L.unshift({n:a.value.trim(),l:b.value.trim(),s:0});save();render()}};
+ c.appendChild(a);c.appendChild(b);c.appendChild(bt);m.appendChild(c);
+ var l=e("div","card");
+ if(!S.L.length)l.appendChild(e("p","mute","Hali hech kim yo'q. 30 ta menejerni shu yerga yoki Google Sheets'ga yozing."));
+ S.L.forEach(function(x,i){
+  var r=e("div","lead"),w=e("div");w.appendChild(e("b",null,x.n));w.appendChild(e("small",null,x.l));
+  var s=e("select");ST.forEach(function(t,j){var o=e("option",null,t);o.value=j;if(j===x.s)o.selected=true;s.appendChild(o)});
+  s.onchange=function(){x.s=Number(s.value);save()};
+  var d=e("button","btn g","X");d.onclick=function(){S.L.splice(i,1);save();render()};
+  r.appendChild(w);r.appendChild(s);r.appendChild(d);l.appendChild(r)});
+ m.appendChild(l);
+}
+function vTpl(m){
+ T.forEach(function(t){
+  var c=e("div","card tpl");c.appendChild(e("b",null,t.n));c.appendChild(e("p",null,t.x));
+  var b=e("button","btn","Nusxalash");
+  b.onclick=function(){
+   function ok(){b.textContent="Nusxalandi";b.classList.add("ok");setTimeout(function(){b.textContent="Nusxalash";b.classList.remove("ok")},1500)}
+   function fb(){var a=document.createElement("textarea");a.value=t.x;document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(x){}document.body.removeChild(a)}
+   try{navigator.clipboard.writeText(t.x).then(ok,fb)}catch(x){fb()}};
+  c.appendChild(b);m.appendChild(c)});
+}
+render();
+</script>
+</body>
+</html>
